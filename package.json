@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "engines": {
     "node": ">=14.0.0",
@@ -29,12 +31,27 @@
     "react-hook-form": "^7.31.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@chakra-ui/storybook-addon": "^3.0.2",
     "@commitlint/cli": "^17.0.1",
     "@commitlint/config-conventional": "^17.0.0",
+    "@storybook/addon-actions": "^6.5.5",
+    "@storybook/addon-essentials": "^6.5.5",
+    "@storybook/addon-interactions": "^6.5.5",
+    "@storybook/addon-links": "^6.5.5",
+    "@storybook/builder-webpack5": "^6.5.5",
+    "@storybook/manager-webpack5": "^6.5.5",
+    "@storybook/react": "^6.5.5",
+    "@storybook/testing-library": "^0.0.11",
+    "babel-loader": "^8.2.5",
     "cross-env": "^7.0.3",
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
+    "eslint-plugin-storybook": "^0.5.12",
     "husky": "^8.0.1",
     "prettier": "^2.6.2"
+  },
+  "resolutions": {
+    "webpack": "^5"
   }
 }
