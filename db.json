@@ -1,0 +1,44 @@
+{
+  "features": [
+    {
+      "id": 1,
+      "name": "Part Diagnosis",
+      "platform": "Microsoft Windows"
+    },
+    {
+      "id": 2,
+      "name": "Warranty",
+      "platform": "Microsoft Windows"
+    },
+    {
+      "id": 3,
+      "name": "Mileage",
+      "platform": "Microsoft Windows"
+    },
+    {
+      "id": 4,
+      "name": "Maintenance Record",
+      "platform": "Microsoft Windows"
+    },
+    {
+      "id": 5,
+      "name": "Parts",
+      "platform": "Microsoft Windows"
+    },
+    {
+      "id": 6,
+      "name": "Bike Info",
+      "platform": "Microsoft Windows"
+    },
+    {
+      "id": 7,
+      "name": "Stocks Management",
+      "platform": "Microsoft Windows"
+    },
+    {
+      "id": 8,
+      "name": "Languages",
+      "platform": "Microsoft Windows"
+    }
+  ]
+}
