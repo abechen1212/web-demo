@@ -46,7 +46,7 @@ export default function Platform() {
       <Heading as="h1" size="lg">
         Choose Platform
       </Heading>
-      <form style={{ marginTop: '1rem' }}>
+      <form style={{ marginTop: '1rem' }} onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.platform}>
           <RadioGroup>
             <Stack direction="column">
@@ -71,11 +71,7 @@ export default function Platform() {
           <Button colorScheme="red" onClick={() => {}}>
             Back
           </Button>
-          <Button
-            colorScheme="green"
-            isLoading={isSubmitting}
-            onClick={handleSubmit(onSubmit)}
-          >
+          <Button colorScheme="green" isLoading={isSubmitting} type="submit">
             Next
           </Button>
         </ButtonGroup>
