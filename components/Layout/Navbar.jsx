@@ -17,8 +17,8 @@ export default function Navbar() {
           <a>
             <NextImage
               src="/farmland_logo.png"
-              width="200"
-              height="70"
+              width="150"
+              height="50"
               alt="logo"
               // layout="fill"
             />

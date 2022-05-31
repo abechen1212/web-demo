@@ -2,8 +2,6 @@ import Head from 'next/head';
 import Navbar from './Navbar';
 import { Box } from '@chakra-ui/react';
 
-import React from 'react';
-
 export default function Layout({ children, router }) {
   const isDemoMode = router.asPath.slice(1, 5) === 'demo';
   // console.log(test);
