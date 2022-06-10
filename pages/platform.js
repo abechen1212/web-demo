@@ -13,6 +13,7 @@ import {
   FormControl,
 } from '@chakra-ui/react';
 import { setSelectPlatform } from '../store/slices/featuresSlice.js';
+import { resetUser } from '../store/slices/userSlice.js';
 
 import { platforms } from '../constants/platform';
 
@@ -30,6 +31,11 @@ export default function Platform() {
   const onSubmit = (data) => {
     dispatch(setSelectPlatform(data.platform));
     router.push('/features');
+  };
+
+  const handleBack = () => {
+    dispatch(resetUser());
+    router.back();
   };
 
   return (
@@ -68,7 +74,7 @@ export default function Platform() {
           </FormErrorMessage>
         </FormControl>
         <ButtonGroup gap="4" mt={4}>
-          <Button colorScheme="red" onClick={() => {}}>
+          <Button colorScheme="red" onClick={handleBack}>
             Back
           </Button>
           <Button colorScheme="green" isLoading={isSubmitting} type="submit">

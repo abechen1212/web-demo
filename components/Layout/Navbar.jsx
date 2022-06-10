@@ -9,11 +9,11 @@ export default function Navbar() {
       top="0"
       w="100%"
       h="70px"
-      background="blue.800"
+      background="gray.300"
       zIndex={1}
     >
-      <Box>
-        <NextLink href="/">
+      <Box height="100%">
+        {/* <NextLink href="/">
           <a>
             <NextImage
               src="/farmland_logo.png"
@@ -23,7 +23,8 @@ export default function Navbar() {
               // layout="fill"
             />
           </a>
-        </NextLink>
+        </NextLink> */}
+        Farmland Inc.
       </Box>
     </Box>
   );

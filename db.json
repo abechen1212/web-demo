@@ -1,13 +1,13 @@
 {
   "features": [
     {
-      "id": 1,
-      "name": "Part Diagnosis",
+      "id": 2,
+      "name": "Warranty",
       "platform": "Microsoft Windows"
     },
     {
-      "id": 2,
-      "name": "Warranty",
+      "id": 6,
+      "name": "Bike Info",
       "platform": "Microsoft Windows"
     },
     {
@@ -17,27 +17,22 @@
     },
     {
       "id": 4,
-      "name": "Maintenance Record",
+      "name": "Maintenance",
+      "platform": "Microsoft Windows"
+    },
+    {
+      "id": 7,
+      "name": "Iventory",
+      "platform": "Microsoft Windows"
+    },
+    {
+      "id": 1,
+      "name": "Diagnosis",
       "platform": "Microsoft Windows"
     },
     {
       "id": 5,
       "name": "Parts",
-      "platform": "Microsoft Windows"
-    },
-    {
-      "id": 6,
-      "name": "Bike Info",
-      "platform": "Microsoft Windows"
-    },
-    {
-      "id": 7,
-      "name": "Stocks Management",
-      "platform": "Microsoft Windows"
-    },
-    {
-      "id": 8,
-      "name": "Languages",
       "platform": "Microsoft Windows"
     }
   ]

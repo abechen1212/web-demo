@@ -11,13 +11,31 @@ import {
   FormErrorMessage,
   FormControl,
 } from '@chakra-ui/react';
-import { setUserID } from '../store/slices/userSlice.js';
+import { setUser } from '../store/slices/userSlice.js';
 import { appendFeatures } from '../store/slices/featuresSlice.js';
-import fakeData from '../db.json';
+import axios from 'axios';
 
-export default function Home() {
+export async function getServerSideProps() {
+  const res = await axios.get('http://localhost:3000/api/features');
+
+  return {
+    props: {
+      features: res.data,
+    }, // will be passed to the page component as props
+  };
+}
+
+export default function Home({ features }) {
   const toast = useToast();
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  // 載入時, 將所有 feature 存入 featuresSlice
+  useEffect(() => {
+    dispatch(appendFeatures(features));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   //https://jasonwatmore.com/post/2021/09/13/react-hook-form-display-custom-error-message-returned-from-api-request
   const {
     handleSubmit,
@@ -27,26 +45,28 @@ export default function Home() {
   } = useForm();
 
   // console.log('errors', errors);
-  const dispatch = useDispatch();
-  // 載入時, 將所有 feature 存入 featuresSlice
-  useEffect(() => {
-    dispatch(appendFeatures(fakeData.features));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const onSubmit = async (data) => {
+    // console.log('formdata', data);
     //! POST to server
-
-    console.log('data', data);
-    dispatch(setUserID(data.userID));
-    toast({
-      title: 'Login your account',
-      description: 'You are logged in',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
-    router.push('/platform');
+    await axios
+      .post('http://localhost:3000/api/login', { username: data.userName })
+      .then((res) => {
+        console.log(res.data);
+        dispatch(setUser(res.data));
+        toast({
+          title: 'Login your account',
+          description: 'You are logged in',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+        router.push('/platform');
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        setError('userName', { message: err.response.data.error });
+      });
   };
 
   return (
@@ -65,12 +85,12 @@ export default function Home() {
       </Heading>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mt={5}>
-          <FormControl isInvalid={errors.userID}>
+          <FormControl isInvalid={errors.userName}>
             <Input
               type="text"
-              id="userID"
+              id="userName"
               placeholder="User ID"
-              {...register('userID', {
+              {...register('userName', {
                 required: 'User ID is required',
                 minLength: {
                   value: 5,
@@ -79,7 +99,7 @@ export default function Home() {
               })}
             />
             <FormErrorMessage>
-              {errors.userID && errors.userID.message}
+              {errors.userName && errors.userName.message}
             </FormErrorMessage>
           </FormControl>
         </Box>
