@@ -11,6 +11,9 @@ import {
   FormControl,
 } from '@chakra-ui/react';
 import DesktopLayout from '../../../components/layout/demo/Desktop.js';
+import { setUser } from '../../../store/slices/userSlice.js';
+import { appendBuildData } from '../../../store/slices/buildSlice';
+import axios from 'axios';
 
 export default function Login() {
   const toast = useToast();
@@ -19,7 +22,7 @@ export default function Login() {
   const {
     handleSubmit,
     register,
-    setError, //! for api fetching: setError(name, {message: error})
+    setError, //* for api fetching: setError(name, {message: error})
     formState: { errors, isSubmitting },
   } = useForm();
 
@@ -27,18 +30,29 @@ export default function Login() {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    //! POST to server
-
-    console.log('data', data);
-    // dispatch(setUser(data.userID));
-    toast({
-      title: 'Login your account',
-      description: 'You are logged in',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
-    router.push('/demo/desktop');
+    try {
+      const res = await axios.post('http://localhost:3000/api/login', {
+        username: data.userName,
+      });
+      const userID = res.data.user_id;
+      const buildResponse = await axios.get(
+        `http://localhost:3000//api/build/${userID}`
+      );
+      dispatch(setUser(res.data));
+      dispatch(appendBuildData(buildResponse.data));
+      // console.log(res.data);
+      toast({
+        title: 'Login your account',
+        description: 'You are logged in',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      router.push('/demo/desktop');
+    } catch (error) {
+      console.log(error.response.data);
+      setError('userName', { message: error.response.data.error });
+    }
   };
 
   return (
@@ -46,8 +60,7 @@ export default function Login() {
       <Box
         px={4}
         pt={3}
-        mt={2}
-        h="80vh"
+        h="90vh"
         display="flex"
         flexDirection="column"
         justifyContent="center"
@@ -58,12 +71,13 @@ export default function Login() {
         </Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box mt={5}>
-            <FormControl isInvalid={errors.userID}>
+            <FormControl isInvalid={errors.userName}>
               <Input
                 type="text"
-                id="userID"
+                id="userName"
+                borderColor="white"
                 placeholder="User ID"
-                {...register('userID', {
+                {...register('userName', {
                   required: 'User ID is required',
                   minLength: {
                     value: 5,
@@ -72,11 +86,17 @@ export default function Login() {
                 })}
               />
               <FormErrorMessage>
-                {errors.userID && errors.userID.message}
+                {errors.userName && errors.userName.message}
               </FormErrorMessage>
             </FormControl>
           </Box>
-          <Button mt={2} w="full" isLoading={isSubmitting} type="submit">
+          <Button
+            mt={2}
+            w="full"
+            colorScheme="teal"
+            isLoading={isSubmitting}
+            type="submit"
+          >
             Next
           </Button>
         </form>

@@ -1,19 +1,14 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+import Navbar from './Navbar';
+import { useRouter } from 'next/router';
 
 const Desktop = ({ children }) => {
+  const router = useRouter();
+  console.log(router.pathname);
+  const isLoginPage = router.pathname === '/demo/desktop/login';
   return (
     <Box px={10} color="#D8D8D8" backgroundColor="#0D172A" minHeight="100vh">
-      <Box
-        as="nav"
-        height="15vh"
-        display="flex"
-        justifyContent="start"
-        alignItems="center"
-      >
-        <Box>
-          <Heading size="2xl">Service Tool Demo</Heading>
-        </Box>
-      </Box>
+      {!isLoginPage ? <Navbar imgUrl="/haro-logo2.png" /> : null}
       {children}
     </Box>
   );
